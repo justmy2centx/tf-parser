@@ -1,0 +1,6 @@
+# Ignore .env files
+*.env
+
+# Ignore .tfstate files
+*.tfstate
+*.tfstate.*

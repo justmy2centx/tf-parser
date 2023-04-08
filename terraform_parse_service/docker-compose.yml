@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  terraform-parsing:
+    build:
+      context: .
+    environment:
+      GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}
+    ports:
+      - "5005:5005"
