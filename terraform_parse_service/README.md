@@ -10,4 +10,3 @@ REPO_NAME = "justmy2centx/tf-parser"
 
 curl -X POST -H "Content-Type: application/json" -d '{"payload": {"properties": {"aws-region": "eu-west-1", "bucket-name": "tripla-bucket"}}}' http://localhost:5001/terraform
 
-export GITHUB_ACCESS_TOKEN=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

@@ -52,6 +52,11 @@ def create_branch_and_pr(terraform_file, access_token, repo_name):
     
     file_name = "aws_s3_bucket.tf"
     commit_message = f"Add {file_name}"
+    dir_name = "terraform_s3_buckets"
+
+    if not any(file.name == dir_name for file in repo.get_contents("")):
+        repo.create_file(f"{dir_name}/README.md", "Initial commit", "")
+        
     repo.create_file(file_name, commit_message, terraform_file, branch=new_branch_name)
 
     pr_title = f"Add {file_name}"
