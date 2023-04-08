@@ -61,14 +61,15 @@ def create_branch_and_pr(payload, terraform_file, access_token, repo_name, bucke
 
     if not any(file.name == dir_name for file in repo.get_contents("")):
         repo.create_file(f"{dir_name}/README.md", "Initial commit", "")
-        
-    repo.create_file(file_name, commit_message, terraform_file, branch=new_branch_name)
+    
+    repo.create_file(f"{dir_name}/{file_name}", commit_message, terraform_file, branch=new_branch_name)
 
     pr_title = f"Add {file_name}"
     pr_body = f"PR for adding {file_name}"
     pr = repo.create_pull(title=pr_title, body=pr_body, head=new_branch_name, base="main")
 
     return pr.number
+
 
 
 if __name__ == '__main__':
