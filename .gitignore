@@ -4,3 +4,12 @@
 # Ignore .tfstate files
 *.tfstate
 *.tfstate.*
+
+# ignore .terraform.lock.hcl files
+*.terraform.lock.hcl
+
+# ignore .terraform directories in the root directory
+/.terraform/
+
+# ignore .terraform directories in all other directories
+**/.terraform/
