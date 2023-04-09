@@ -77,22 +77,6 @@ resource "aws_ecr_repository" "ecr_repo" {
   name = var.ecr_repo_name
 }
 
-# Create an IAM role and policy for the container registry
-# resource "aws_iam_role" "ecr_role" {
-#   name = "dev-ecr-role"
-#   assume_role_policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Action = "sts:AssumeRole"
-#         Effect = "Allow"
-#         Principal = {
-#           AWS = "ecr.amazonaws.com"
-#         }
-#       }
-#     ]
-#   })
-# }
 
 resource "aws_iam_role" "ecr_role" {
   name               = "dev-ecr-role"
