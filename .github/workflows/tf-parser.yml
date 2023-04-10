@@ -48,12 +48,14 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           terraform_parse_service/
+          
 
     # Push the Docker image to Amazon Elastic Container Registry
     - name: Publish
       run: |-
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 959377822120.dkr.ecr.us-east-1.amazonaws.com
         docker push "959377822120.dkr.ecr.us-east-1.amazonaws.com/$IMAGE:$GITHUB_SHA"
+
 
     # Deploy the Docker image to the EKS cluster
     - name: Deploy
