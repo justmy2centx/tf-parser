@@ -35,7 +35,12 @@ jobs:
 
     - name: Configure kubectl for EKS
       run: |
-        aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }}
+        aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region us-east-1
+
+
+    - name: Deploy
+      run: |-
+        kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.crds.yaml
 
     - name: Install and configure Helm
       run: |
@@ -56,9 +61,6 @@ jobs:
 
     # Deploy Let's Encrypt! cluster-issuer
 
-    - name: Deploy
-      run: |-
-        kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.crds.yaml
 
     - name: Deploy
       run: |-
