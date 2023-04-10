@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tf-parser-secrets
+type: Opaque
+stringData:
+  access-token: secretkey
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: tf-parser-app
+ labels:
+   app: tf-parser-app
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: tf-parser-app
+ template:
+   metadata:
+     labels:
+       app: tf-parser-app
+   spec:
+     containers:
+       - name: tf-parser-app
+         image: 959377822120.dkr.ecr.us-east-1.amazonaws.com/tf-parser:GITHUB_SHA
+         imagePullPolicy: Always
+         ports:
+           - containerPort: 5005
+         env:
+           - name: GITHUB_ACCESS_TOKEN
+             valueFrom:
+               secretKeyRef:
+                 name: tf-parser-secrets
+                 key: access-token
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tf-parser-app-service
+  labels:
+    app: tf-parser-app
+spec:
+  ports:
+    - port: 5005
+      targetPort: 5005
+  selector:
+    app: tf-parser-app
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tf-parser-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/certificate: letsencrypt
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: Deny";
+      more_set_headers "X-Xss-Protection: 1; mode=block";
+      more_set_headers "X-Content-Type-Options: nosniff";
+spec:
+  rules:
+    - host: tf-parser-app.reliableweb.info
+      http:
+        paths:
+        - backend:
+            service:
+              name: tf-parser-app-service
+              port: 
+                number: 5005
+          path: /
+          pathType: Prefix
+  tls:
+    - secretName: tf-parser-app
+      hosts:
+        - tf-parser-app.reliableweb.info
