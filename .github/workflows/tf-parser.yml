@@ -3,7 +3,7 @@ name: Build and Deploy to EKS
 on:
   push:
     branches:
-      - dev 
+      - main 
     paths:
     - tf-parser/terraform_parse_service/*
     - .github/workflows/tf-parser.yml
