@@ -5,7 +5,7 @@ on:
     branches:
       - main 
     paths:
-    - tf-parser/terraform_parse_service/*
+    - terraform_parse_service/**
     - .github/workflows/tf-parser.yml
     - .github/manifests/tf-parser.yml
 
@@ -48,7 +48,7 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           terraform_parse_service/
-          
+
 
     # Push the Docker image to Amazon Elastic Container Registry
     - name: Publish
