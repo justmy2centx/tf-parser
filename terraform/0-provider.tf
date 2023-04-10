@@ -1,6 +1,6 @@
 # Configure the AWS provider
 provider "aws" {
-  region = var.region
+  region = "us-east-1"
 
 }
 
@@ -9,13 +9,13 @@ terraform {
 
     aws = {
       source  = "hashicorp/aws"
-      version = "4.62.0"
+      version = "~> 3.0"
     }
 
   }
   backend "s3" {
-    bucket = "tripla-terraform-state-lucky"
+    bucket = "tripla-terraform-state-011"
     key    = "terraform.tfstate"
-    region = "ap-southeast-1"
+    region = "us-east-1"
   }
 }
