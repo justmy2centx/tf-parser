@@ -6,7 +6,7 @@ Merge and push to main automatically builds the container and push the image to 
 In order to test, you can run this sample curl command. Make sure to put a unique bucket name.
 
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"payload": {"properties": {"aws-region": "us-west-2", "bucket-name": "your_unique_bucket_name_here"}}}' http://tf-parser-app.reliableweb.info/terraform
+curl -X POST -H "Content-Type: application/json" -d '{"payload": {"properties": {"aws-region": "us-west-2", "bucket-name": "your_unique_bucket_name_here"}}}' https://tf-parser-app.reliableweb.info/terraform
 ```
 
 To answer some of the questions in the take home test pdf:
